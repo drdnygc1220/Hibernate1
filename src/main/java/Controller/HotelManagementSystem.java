@@ -1,5 +1,10 @@
 package Controller;
-
+/*
+Domain class:Entity classların içinde bulundugu
+Repository:Data cekilir,gönderilir,update edilir.
+Service class:en kalabalık kodların  oldugu class olur.(mantıksal işlemler)
+uygulama geliştirirken genelde:Controller,service,repository...
+ */
 import Config.HibernateUtils;
 import Repository.HotelRepository;
 import Service.HotelService;
@@ -76,10 +81,18 @@ public class HotelManagementSystem {
                   hotelService.saveHotel();
                   break;
               case 2:
+                  //find otel
+                  System.out.println("enter hotel ıd");
+                  Long id=scanner.nextLong();
+                  scanner.nextLine();
+                  hotelService.findHotelById(id);
                   break;
               case 3:
                   break;
               case 4:
+                  //get all hotels
+                  hotelService.findAllHotels();
+
                   break;
               case 0:
                   exit=true;
@@ -96,9 +109,17 @@ public class HotelManagementSystem {
 
    }
    private  static void displayRoomOperationsMenu(){
+       HotelRepository hotelRepository=new HotelRepository();//bir kere oluşturduk
+       HotelService hotelService=new HotelService(hotelRepository);//içine enjekte ediyorum.
        boolean exit=false;
-       while(!exit){
-           System.out.println("");
+       while (!exit){
+           System.out.println("============Hotel Management  System Menu ==========");
+           System.out.println("1-Hotel Operations");
+           System.out.println("2-Room Operations");
+           System.out.println("3-Guest Operations");
+           System.out.println("4-Rezervation Operations");
+           System.out.println("0-Exit");
+           System.out.println("Enter your choice:");
            int choice= scanner.nextInt();
            scanner.nextLine();
            switch (choice){

@@ -1,8 +1,10 @@
 package Service;
 
 import Domain.Hotel;
+import Exceptions.HotelNotFoundException;
 import Repository.HotelRepository;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class HotelService {
@@ -33,6 +35,41 @@ public class HotelService {
 
 
 
+
+    }
+
+    public Hotel findHotelById(Long id) {
+        Hotel founHotel=hotelRepository.findById(id);
+        try {
+            if (founHotel != null) {
+                System.out.println("-------------------");
+                System.out.println(founHotel);//toString oldugu için direk objeyi yazdırır
+                System.out.println("-------------------");
+                return founHotel;
+            } else {
+                throw new HotelNotFoundException("Hotel not found by id: " + id);//throw ile exception bizi yaptık anlamlı olması için
+            }
+        }catch (HotelNotFoundException e){
+            System.out.println("e.getMessage()= "+e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Hotel> findAllHotels() {//birden fazla hotel oldugu için list yaptık
+
+            //tüm otelleri repositoryden findAll methodundan içinde hotel olan bir liste döndürmeli
+            List<Hotel> hotelList=HotelRepository.findAll();
+            if(!hotelList.isEmpty()){//isEmpty=liste boşsa
+                System.out.println("----------List of Hotels----------------");
+               for(Hotel hotel:hotelList){
+                   System.out.println(hotel);
+                   System.out.println("--------------------------------------");
+               }
+
+            }else{
+                System.out.println("Hotel list is empty!");
+            }
+            return hotelList;
 
     }
 }
