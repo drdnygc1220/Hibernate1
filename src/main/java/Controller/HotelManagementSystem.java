@@ -1,205 +1,195 @@
 package Controller;
-/*
-Domain class:Entity classların içinde bulundugu
-Repository:Data cekilir,gönderilir,update edilir.
-Service class:en kalabalık kodların  oldugu class olur.(mantıksal işlemler)
-uygulama geliştirirken genelde:Controller,service,repository...
- */
+
 import Config.HibernateUtils;
+import Repository.GuestRepository;
 import Repository.HotelRepository;
+import Repository.RoomRepository;
 import Service.HotelService;
+import Service.RoomService;
 
 import java.util.Scanner;
 
+//bu package kullanıcyla iletişime gectiğimiz alan
+//runner classı sadece methodla cagırıp başlattıgımz kısım olack
 public class HotelManagementSystem {
-    //kullanıcı ile iletişime gectiğimiz kısım.
-    //menüleri sunacagız..
+    private static Scanner scanner=new Scanner(System.in);
 
-    //birden fazla scanner oluşturacagımız için field şeklinde yazdım
-   private static Scanner scanner=new Scanner(System.in);
+    //proje aslında bu method içinde başlıyor ve bitiyor.....
+    public static void displayMenuHotelManagementSystem() {
+        HotelRepository hotelRepository=new HotelRepository();
+        HotelService hotelService=new HotelService(hotelRepository);
+        RoomRepository roomRepository=new RoomRepository();
+        RoomService roomService=new RoomService(roomRepository,hotelService);
 
-   public static void displayMenuHotelManagementSystem(){
-       HotelRepository hotelRepository=new HotelRepository();//bir kere oluşturduk
-       HotelService hotelService=new HotelService(hotelRepository);//içine enjekte ediyorum.
-       boolean exit=false;
-       while (!exit){
-           System.out.println("============Hotel Management  System Menu ==========");
-           System.out.println("1-Hotel Operations");
-           System.out.println("2-Room Operations");
-           System.out.println("3-Guest Operations");
-           System.out.println("4-Rezervation Operations");
-           System.out.println("0-Exit");
-           System.out.println("Enter your choice:");
-           int choice= scanner.nextInt();
-           scanner.nextLine();
+        boolean exit=false;
+        while (!exit){
+                System.out.println("====== Hotel Management System Menu ======");
+                System.out.println("1. Hotel Operations");
+                System.out.println("2. Room Operations");
+                System.out.println("3. Guest Operations");
+                System.out.println("4. Reservation Operations");
+                System.out.println("0. Exit");
+                System.out.println("Enter you cohoice");
+                int cohoice=scanner.nextInt();
+                switch (cohoice){
+                    case 1:
 
-           switch (choice){
-               case 1:
-                   //save hotel:OTELİ KAYDEDECEĞİZ..
-                   displayHotelOperationsMenu(hotelService);
-                   break;
-               case 2:
-                   displayRoomOperationsMenu();
-                   break;
-               case 3:
-                   displayGuestOperationsMenu();
-                   break;
-               case 4:
-                   displayReserveationOperationsMenu();
-                   break;
-               case 0:
-                   exit=true;
-                   System.out.println("Good bye ...");
-                   //CIKIŞ YAPARKEN KAPAT.Shutdown METHOD CAGIRILACAK..
-                   HibernateUtils.shutdown();
-                   break;
-               default:
-                   System.out.println("Invalid choice,Please try again");
-                   break;
-           }
-       }
-   }
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 0:
+                        exit=true;
+                        System.out.println("tekrar bekleriz..");
+                        //proggramı kapatalım.//shutdown methodu
+                        HibernateUtils.shutdown();
+                        break;
+                    default:
+                        System.out.println("lütfen secim kısmına dikkat edelim");
+                        break;
+                }
+        }
+    }
 
-   private static void displayHotelOperationsMenu(HotelService hotelService){//otelle ilgili menüler
-       System.out.println("HotelOperationMenu");
-       boolean exit=false;
-      while(!exit){
-          System.out.println("===Hotel Operations");
-          System.out.println("1.Add a new hotel");
-          System.out.println("2.Find Hotel By 10");
-          System.out.println("3.Delete hotel By ID");
-          System.out.println("4.Find All Hotels");
-          System.out.println("5.Update Hotel By ID");
-          System.out.println("0.Return to Main Menu");
-          System.out.println("Enter your choice");
+    public static void displayHotelOperationsMenu(HotelService hotelService){
+        System.out.println("Hotel işlemleri Menüsü");
+        boolean exit=false;
+        while (!exit){
+            System.out.println("==== Hotel Operations ====");
+            System.out.println("1. Add a new hotel");
+            System.out.println("2. Find Hotel By ID");
+            System.out.println("3. Delete Hotel By ID");
+            System.out.println("4. Find All Hotels");
+            System.out.println("5. Update Hotel By ID");
+            System.out.println("0. Return to Main Menu");
+            System.out.print("Enter your choice: ");
+            int choice= scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 1:
+                break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 0:
+                    exit=true;
+                    break;
+                default:
+                    System.out.println("lütfen gecerli bir işlem giriniz.");
+                    break;
 
-          int choice= scanner.nextInt();
-          scanner.nextLine();
-          switch (choice){
-              case 1:
-                  //save hotel
-                  hotelService.saveHotel();
-                  break;
-              case 2:
-                  //find otel
-                  System.out.println("enter hotel ıd");
-                  Long id=scanner.nextLong();
-                  scanner.nextLine();
-                  hotelService.findHotelById(id);
-                  break;
-              case 3:
-                  break;
-              case 4:
-                  //get all hotels
-                  hotelService.findAllHotels();
+            }
 
-                  break;
-              case 0:
-                  exit=true;
-                  System.out.println("Good bye ...");
-                  //CIKIŞ YAPARKEN KAPAT.Shutdown METHOD CAGIRILACAK..
-                  HibernateUtils.shutdown();
-                  break;
-              default:
-                  System.out.println("Invalid choice,Please try again");
-                  break;
-          }
+        }
 
-      }
+    }
 
-   }
-   private  static void displayRoomOperationsMenu(){
-       HotelRepository hotelRepository=new HotelRepository();//bir kere oluşturduk
-       HotelService hotelService=new HotelService(hotelRepository);//içine enjekte ediyorum.
-       boolean exit=false;
-       while (!exit){
-           System.out.println("============Hotel Management  System Menu ==========");
-           System.out.println("1-Hotel Operations");
-           System.out.println("2-Room Operations");
-           System.out.println("3-Guest Operations");
-           System.out.println("4-Rezervation Operations");
-           System.out.println("0-Exit");
-           System.out.println("Enter your choice:");
-           int choice= scanner.nextInt();
-           scanner.nextLine();
-           switch (choice){
-               case 1:
-                   break;
-               case 2:
-                   break;
-               case 3:
-                   break;
-               case 4:
-                   break;
-               case 0:
-                   exit=true;
-                   System.out.println("Good By...");
-                   HibernateUtils.shutdown();
-                   break;
-               default:
-                   System.out.println("Invalid choice,Please try again");
-                   break;
-          }
-       }
-   }
-   private static void displayGuestOperationsMenu(){
-       boolean exit=false;
-       while (!exit){
-           System.out.println("");
-           System.out.println();
-           int choice=scanner.nextInt();
-           scanner.nextLine();
-           switch (choice){
-               case 1:
-                   break;
-               case 2:
-                   break;
-               case 3:
-                   break;
-               case 4:
-                   break;
-               case 0:
-                   exit=true;
-                   System.out.println("Good by");
-                   HibernateUtils.shutdown();
-                   break;
-                   default:
-                       System.out.println("Invalid choice,Please try again");
-                       break;
-           }
-       }
+    public static void displayRoomOperationsMenu(RoomService roomService){
+        System.out.println("Room işlemleri menüsü");
+        boolean exit=false;
+        while (!exit){
+            System.out.println("==== Room Operations ====");
+            System.out.println("1. Add a new room");
+            System.out.println("2. Find Room By ID");
+            System.out.println("3. Delete Room By ID");
+            System.out.println("4. Find All Rooms");
+            System.out.println("0. Return to Main Menu");
+            System.out.print("Enter your choice: ");
+            int choice= scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 0:
+                    exit=true;
+                    break;
+                default:
+                    System.out.println("yanlış yada eksik girdiniz");
+                    break;
 
-   }
-   private static void displayReserveationOperationsMenu(){
-       boolean exit=false;
-       while (!exit){
-           System.out.println("");
-           System.out.println();
-           int choice= scanner.nextInt();
-           scanner.nextLine();
-           switch (choice){
-               case 1:
-                   break;
-               case 2:
-                   break;
-               case 3:
-                   break;
-               case 4:
-                   break;
-               case 5:
-                   break;
-               case 0:
-                   exit=true;
-                   System.out.println("Good By");
-                   HibernateUtils.shutdown();
-                   break;
-               default:
-                   System.out.println("Invalid choice,Please try again");
-                   break;
+            }
+        }
 
-           }
-       }
+    }
 
-   }
+    public static void displayGuestOperationsMenu(){//parametre kısmına tekrar bak neden almamış
+        System.out.println("Guest işlemleri menüsü");
+        boolean exit=false;
+        while (!exit){
+            System.out.println("==== Guest Operations ====");
+            System.out.println("1. Add a new guest");
+            System.out.println("2. Find Guest By ID");
+            System.out.println("3. Delete Guest By ID");
+            System.out.println("4. Find All Guests");
+            System.out.println("0. Return to Main Menu");
+            System.out.print("Enter your choice: ");
+            int choice= scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 0:
+                    exit=true;
+                    break;
+                default:
+                    System.out.println("yanlış yada eksik giriş yaptınız");
+                    break;
 
+            }
+        }
+
+    }
+
+    public static void displayReservationOperationsMenu(){
+        System.out.println("Reservation işlemleri menüsü");
+        boolean exit=false;
+        while (!exit){
+            System.out.println("==== Reservation Operations ====");
+            System.out.println("1. Add a new reservation");
+            System.out.println("2. Find Reservation By ID");
+            System.out.println("3. Find All Reservations");
+            System.out.println("4. Delete Reservation By ID");
+            System.out.println("0. Return to Main Menu");
+            System.out.print("Enter your choice: ");
+            int choice= scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    exit=true;
+                    break;
+                default:
+                    System.out.println("yanlış yada eksik bilgi girdiniz");
+                    break;
+            }
+        }
+
+    }
 }

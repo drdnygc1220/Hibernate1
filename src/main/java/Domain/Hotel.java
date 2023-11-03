@@ -4,40 +4,38 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//domain=entity=pojo
-//entity classları bir package de topladık
-@Entity//bir tablo oluşturacak
-@Table(name="t_hotel")//opsiyonel=zorunluluk yok
+@Entity
+@Table(name = "t_hotel")
 public class Hotel {
 
-    //tablolar arasındada ilişki olması lazım:id sütunumu kullanarak yap bunu demek için @ıd kullanırız
     @Id
-    private Long id;//null deger girmesini istiyorsak non-primitive kullanmam lazım.
-    //non-primitive yazdım:çünkü ıd degerini girmezsem 0 girer ama benim için bir degerdir girmesin diyoruz.
-
-    //name sütunundaki degerlerin null olmasını istemiyorum
+    private Long id;//non-primitive almamım sebebi default olarak 0 alır
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String location;
 
-   // TODO:@OneToMany:Room tablosunda koymak daha dogru olur
-    //odalarını collectıon tutmam lazım genelde list tipinde tutmam lazım
-    private List<Room> romms=new ArrayList<>();//onetoone yapacagım
+    //odaları vardır liste seklinde gösterecegiz.
+    @OneToMany(mappedBy = "hotel",fetch = FetchType.EAGER)//3.tablo oluşturma
+    private List<Room> rooms=new ArrayList<>();
 
-    //param cons:bunu yaptıgımızda biz parametresiz constructora ihtiyacımız yok demekti fakat Hibernate parametresiz cons ihtiyac duyar.
-    public Hotel(Long id, String name, String location, List<Room> romms) {
+    //parametresiz cons.;Normalde parametreli yaptıgımızda bunu opsiyonel yapmış oluyoruz
+    // fakat hibeernate dataları alıp getirdiğine
+    // buradaki objelerle karşılaştırma yapmak için bir alana ihtiyac duyar.
+
+    // bu alan parametresiz cons olur.
+    public Hotel() {
+    }
+
+    //parametreli con
+    public Hotel(Long id, String name, String location, List<Room> rooms) {
         this.id = id;
         this.name = name;
         this.location = location;
-        this.romms = romms;
+        this.rooms = rooms;
     }
-
-    //parametresiz con
-    public Hotel() {//fetch için hibernate default cons kullanır.
-    }
-
     //getter-setter
+
 
     public Long getId() {
         return id;
@@ -63,15 +61,14 @@ public class Hotel {
         this.location = location;
     }
 
-    public List<Room> getRomms() {
-        return romms;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public void setRomms(List<Room> romms) {
-        this.romms = romms;
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
-
-    //otel objemizi dogrudan getirebilmek için toString
+    //toString
 
     @Override
     public String toString() {
@@ -79,7 +76,7 @@ public class Hotel {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
-                ", romms=" + romms +
+                ", rooms=" + rooms +
                 '}';
     }
 }
