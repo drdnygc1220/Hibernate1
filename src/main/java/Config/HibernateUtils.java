@@ -29,6 +29,7 @@ public class HibernateUtils {
     //getter methodu session factor için
 
     public static SessionFactory getSessionFactory() {
+
         return sessionFactory;
     }
     //sessionfactor kapatalıcak.

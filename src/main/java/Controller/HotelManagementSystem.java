@@ -18,8 +18,8 @@ public class HotelManagementSystem {
     public static void displayMenuHotelManagementSystem() {
         HotelRepository hotelRepository=new HotelRepository();
         HotelService hotelService=new HotelService(hotelRepository);
-        RoomRepository roomRepository=new RoomRepository();
-        RoomService roomService=new RoomService(roomRepository,hotelService);
+       // RoomRepository roomRepository=new RoomRepository();
+       // RoomService roomService=new RoomService(roomRepository,hotelService);
 
         boolean exit=false;
         while (!exit){
@@ -33,13 +33,16 @@ public class HotelManagementSystem {
                 int cohoice=scanner.nextInt();
                 switch (cohoice){
                     case 1:
-
+                        displayHotelOperationsMenu(hotelService);
                         break;
                     case 2:
+                       // displayRoomOperationsMenu(roomService);
                         break;
                     case 3:
+                        displayGuestOperationsMenu();
                         break;
                     case 4:
+                        displayReservationOperationsMenu();
                         break;
                     case 0:
                         exit=true;
