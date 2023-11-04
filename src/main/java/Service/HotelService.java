@@ -1,8 +1,10 @@
 package Service;
 
 import Domain.Hotel;
+import Exceptions.HotelNotFoundExceptions;
 import Repository.HotelRepository;
 
+import java.util.List;
 import java.util.Scanner;
 
 //hotel ile ilgili işlem yapacagız
@@ -40,6 +42,33 @@ public class HotelService {
     }
 
 
+    public Hotel findHotelById(Long id) {
+        Hotel foundHotel=hotelRepository.findById(id);
+        try {
 
 
+            if (foundHotel != null) {
+                System.out.println("-----------------");
+                System.out.println(foundHotel);
+                System.out.println("-----------------");
+                return foundHotel;
+            } else {
+                throw new HotelNotFoundExceptions("hotel ıd bulunumadı: " + id);
+            }
+        }catch (HotelNotFoundExceptions e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Hotel> findAllHotels() {
+        try{
+           List<Hotel>hotels= hotelRepository.findALL();
+           //
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

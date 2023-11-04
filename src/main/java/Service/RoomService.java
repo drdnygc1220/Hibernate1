@@ -1,5 +1,5 @@
 package Service;
-
+//service clasları controller ile reposştory clasları arasında bir memur gibi.
 import Repository.RoomRepository;
 
 import java.util.Scanner;

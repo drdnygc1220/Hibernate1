@@ -72,13 +72,19 @@ public class HotelManagementSystem {
             int choice= scanner.nextInt();
             scanner.nextLine();
             switch (choice){
-                case 1:
+                case 1://save hotel
+                    hotelService.saveHotel();
                 break;
-                case 2:
+                case 2://find hotel
+                    System.out.println("Hotel ID :");
+                    Long id= scanner.nextLong();
+                    scanner.nextLine();
+                    hotelService.findHotelById(id);
                     break;
-                case 3:
+                case 3://delete hotel
                     break;
-                case 4:
+                case 4://tüm otelleri göster
+                    hotelService.findAllHotels();
                     break;
                 case 5:
                     break;
