@@ -52,7 +52,40 @@ public class HotelRepository {
        return hotelList;
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            HibernateUtils.closeSession(session);
         }
         return null;
+    }
+
+    public void deleteById(Hotel hotel) {//tabloda değişklik yaptıgımızda transaction şart
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction=session.beginTransaction();
+
+            session.delete(hotel);
+            transaction.commit();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }finally {
+            HibernateUtils.closeSession(session);//her durumda sessionı başlat.
+        }
+
+
+    }
+
+    public void updateById(Hotel hotel) {
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+
+            session.update(hotel);
+
+            transaction.commit();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }finally {
+            HibernateUtils.closeSession(session);
+        }
     }
 }

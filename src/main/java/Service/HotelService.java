@@ -84,6 +84,39 @@ public class HotelService {
 
 
     }
+
+    public void deleteHotelById(Long id) {
+        //id si verilen oteli öncelikle bulalım
+        //burada repositoryden gitmek yerine yukarıda findHotelById methodundan cekmek daha kolay oluyor.
+        Hotel foundHotel=findHotelById(id);
+        if(foundHotel!=null){
+            System.out.println(foundHotel);
+            System.out.println("Are you sure want to delete hotel by ıd: "+id);
+            System.out.println("Please answer with Y or N");
+            String confirmation=scanner.nextLine();
+            if(confirmation.equalsIgnoreCase("Y")){
+                hotelRepository.deleteById(foundHotel);
+                System.out.println("Hotel is deleted successfully");
+            }else{
+                System.out.println("Delete operation is cancellec...");
+            }
+        }
+    }
+
+    public void updateHotelById(Long id) {
+        //öncelikle oteli bulalım
+        Hotel existingHotel=findHotelById(id);
+        if(existingHotel!=null){
+            System.out.println("Enter the hotel name to update:");
+            String name=scanner.nextLine();
+            System.out.println("Enter the hotel location to update:");
+            String location=scanner.nextLine();
+            existingHotel.setName(name);
+            existingHotel.setLocation(location);
+            hotelRepository.updateById(existingHotel);
+            System.out.println("Hotel is update successfully");
+        }
+    }
 }
 
 

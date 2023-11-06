@@ -82,11 +82,19 @@ public class HotelManagementSystem {
                     hotelService.findHotelById(id);
                     break;
                 case 3://delete hotel
+                    System.out.println("Enter Hotel ID to Delete :");
+                    Long hotelid= scanner.nextLong();
+                    scanner.nextLine();
+                    hotelService.deleteHotelById(hotelid);
                     break;
                 case 4://tüm otelleri göster
                     hotelService.findAllHotels();
                     break;
-                case 5://update
+                case 5://update//otel ıd almamız lazım.
+                    System.out.println("Enter Hotel ID to Update:");
+                    Long updateid= scanner.nextLong();
+                    scanner.nextLine();
+                    hotelService.updateHotelById(updateid);
                     break;
                 case 0:
                     exit=true;
