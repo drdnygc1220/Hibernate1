@@ -18,9 +18,9 @@ public class HibernateUtils {
 //configure yazmazsak default olarak zaten bizim yazdıgımız kısım alır.
 // adını değiştirdiğimizde de belirtmemiz lazım.
                     addAnnotatedClass(Hotel.class).//entity clasları anateyşın yapıp ekliyorum.
-                    addAnnotatedClass(Room.class).
-                    addAnnotatedClass(Reservation.class).
-                    addAnnotatedClass(Guest.class);
+                    addAnnotatedClass(Room.class);
+                   // addAnnotatedClass(Reservation.class).
+                   // addAnnotatedClass(Guest.class);
         }catch (Exception e){
             System.err.println("session factor acılamadı.");
         }

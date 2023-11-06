@@ -17,6 +17,7 @@ public class Hotel {
 
     //odaları vardır liste seklinde gösterecegiz.
     @OneToMany(mappedBy = "hotel",fetch = FetchType.EAGER)//3.tablo oluşturma
+    // room clasındaki hotel içinde set edildiğinde sende buraya gel mapped.
     private List<Room> rooms=new ArrayList<>();
 
     //parametresiz cons.;Normalde parametreli yaptıgımızda bunu opsiyonel yapmış oluyoruz
@@ -28,11 +29,11 @@ public class Hotel {
     }
 
     //parametreli con
-    public Hotel(Long id, String name, String location, List<Room> rooms) {
+    public Hotel(Long id, String name, String location ) {
         this.id = id;
         this.name = name;
         this.location = location;
-        this.rooms = rooms;
+
     }
     //getter-setter
 
@@ -76,7 +77,6 @@ public class Hotel {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
-                ", rooms=" + rooms +
                 '}';
     }
 }

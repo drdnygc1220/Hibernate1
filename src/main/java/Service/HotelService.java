@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 //hotel ile ilgili işlem yapacagız
 public class HotelService {
-   private Scanner scanner=new Scanner(System.in);
-   private final HotelRepository hotelRepository;//burada yapmamızın sebebi hotel repository her
+   private  Scanner scanner=new Scanner(System.in);
+   private  final HotelRepository hotelRepository;//burada yapmamızın sebebi hotel repository her
     // cagrıldıgında newlememek için tek bir kere yazıp daha sonra kullanacgız.
     //final da parametreli cons yapmak zorundayız
 
@@ -23,7 +23,7 @@ public class HotelService {
 
     }
 
-    public void saveHotel() {
+    public  void saveHotel() {
         Hotel hotel = new Hotel();
 
         System.out.println("Hotel ID:");
@@ -34,7 +34,13 @@ public class HotelService {
         System.out.println("Hotel location");
         hotel.setLocation(scanner.nextLine());
 
-        hotelRepository.saveHotel(hotel);
+        try {
+
+            hotelRepository.saveHotel(hotel);
+            System.out.println("Hotel saved successfully.Hotel ID: " + hotel.getId());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         //room kısmını burada oluşturmak yerine room clasında bu oda bu otele
         // ait şekllinde yapacagız..
@@ -45,8 +51,6 @@ public class HotelService {
     public Hotel findHotelById(Long id) {
         Hotel foundHotel=hotelRepository.findById(id);
         try {
-
-
             if (foundHotel != null) {
                 System.out.println("-----------------");
                 System.out.println(foundHotel);
@@ -62,13 +66,24 @@ public class HotelService {
     }
 
     public List<Hotel> findAllHotels() {
-        try{
-           List<Hotel>hotels= hotelRepository.findALL();
-           //
 
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+        List<Hotel> hotelList = hotelRepository.findALL();
+        //Tabloda hiç birşey yokda boş bir rapor dönüyordu
+        //hotel listem boş mu degil mi kontrol etmem lazım.
+        if (!hotelList.isEmpty()) {
+            System.out.println("----------------List of Hotels---------------------");
+            for(Hotel hotel:hotelList){//hotelleri hotel listten gez..
+                System.out.println(hotel);
+                System.out.println("-----------------------------------------------");
+            }
+
+        } else {
+            System.out.println("Hotel list is empty!");
         }
-        return null;
+        return hotelList;
+
+
     }
 }
+
+

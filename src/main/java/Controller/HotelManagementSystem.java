@@ -18,8 +18,8 @@ public class HotelManagementSystem {
     public static void displayMenuHotelManagementSystem() {
         HotelRepository hotelRepository=new HotelRepository();
         HotelService hotelService=new HotelService(hotelRepository);
-       // RoomRepository roomRepository=new RoomRepository();
-       // RoomService roomService=new RoomService(roomRepository,hotelService);
+        RoomRepository roomRepository=new RoomRepository();
+        RoomService roomService=new RoomService(roomRepository,hotelService);
 
         boolean exit=false;
         while (!exit){
@@ -36,7 +36,7 @@ public class HotelManagementSystem {
                         displayHotelOperationsMenu(hotelService);
                         break;
                     case 2:
-                       // displayRoomOperationsMenu(roomService);
+                       displayRoomOperationsMenu(roomService);
                         break;
                     case 3:
                         displayGuestOperationsMenu();
@@ -57,7 +57,7 @@ public class HotelManagementSystem {
         }
     }
 
-    public static void displayHotelOperationsMenu(HotelService hotelService){
+   private static void displayHotelOperationsMenu(HotelService hotelService){
         System.out.println("Hotel işlemleri Menüsü");
         boolean exit=false;
         while (!exit){
@@ -86,7 +86,7 @@ public class HotelManagementSystem {
                 case 4://tüm otelleri göster
                     hotelService.findAllHotels();
                     break;
-                case 5:
+                case 5://update
                     break;
                 case 0:
                     exit=true;
@@ -101,7 +101,7 @@ public class HotelManagementSystem {
 
     }
 
-    public static void displayRoomOperationsMenu(RoomService roomService){
+    private static void displayRoomOperationsMenu(RoomService roomService){
         System.out.println("Room işlemleri menüsü");
         boolean exit=false;
         while (!exit){
@@ -115,13 +115,19 @@ public class HotelManagementSystem {
             int choice= scanner.nextInt();
             scanner.nextLine();
             switch (choice){
-                case 1:
+                case 1://save room
+                    roomService.saveRoom();
                     break;
-                case 2:
+                case 2://find room
+                    System.out.println("Room ID:");
+                    Long id=scanner.nextLong();
+                    scanner.nextLine();
+
                     break;
                 case 3:
                     break;
                 case 4:
+
                     break;
                 case 0:
                     exit=true;
@@ -135,7 +141,7 @@ public class HotelManagementSystem {
 
     }
 
-    public static void displayGuestOperationsMenu(){//parametre kısmına tekrar bak neden almamış
+  private static void displayGuestOperationsMenu(){//parametre kısmına tekrar bak neden almamış
         System.out.println("Guest işlemleri menüsü");
         boolean exit=false;
         while (!exit){
@@ -169,7 +175,7 @@ public class HotelManagementSystem {
 
     }
 
-    public static void displayReservationOperationsMenu(){
+   private static void displayReservationOperationsMenu(){
         System.out.println("Reservation işlemleri menüsü");
         boolean exit=false;
         while (!exit){
