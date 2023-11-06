@@ -57,7 +57,7 @@ public class RoomService {
                 System.out.println("----------");
                 return foundRoom;
             }else {
-                throw new HotelNotFoundExceptions("horel id bulunamadı");
+                throw new HotelNotFoundExceptions("hotel id bulunamadı");
             }
 
         }catch (HotelNotFoundExceptions e){

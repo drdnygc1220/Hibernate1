@@ -8,6 +8,8 @@ import java.util.List;
 @Entity
 @Table(name = "t_guest")
 public class Guest {
+    //todo:generate
+    @Id
     private Long id;
     private String name;
     @Embedded
@@ -21,7 +23,7 @@ public class Guest {
     }
 
     //her bir konuğun rezervasyonu olabilir.
-    @OneToMany
+    @OneToMany(mappedBy = "reservation",orphanRemoval = true)
     private List<Reservation>reservations=new ArrayList<>();
 
     public Guest(Long id, String name, Address address, LocalDateTime createDate, List<Reservation> reservations) {

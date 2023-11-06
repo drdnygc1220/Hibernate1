@@ -130,12 +130,13 @@ public class HotelManagementSystem {
                     System.out.println("Room ID:");
                     Long id=scanner.nextLong();
                     scanner.nextLine();
+                    roomService.findRoomById(id);
 
                     break;
                 case 3:
                     break;
                 case 4:
-
+                    roomService.findAllRooms();
                     break;
                 case 0:
                     exit=true;
@@ -166,10 +167,16 @@ public class HotelManagementSystem {
                 case 1:
                     break;
                 case 2:
+                    System.out.println("Guest ID:");
+                    Long id=scanner.nextLong();
+                    scanner.nextLine();
+
                     break;
                 case 3:
                     break;
                 case 4:
+
+                    //ödev
                     break;
                 case 0:
                     exit=true;
@@ -200,8 +207,10 @@ public class HotelManagementSystem {
                 case 1:
                     break;
                 case 2:
+                    //ödev
                     break;
                 case 3:
+                    //ödev
                     break;
                 case 4:
                     break;
