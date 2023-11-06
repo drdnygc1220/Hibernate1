@@ -16,7 +16,7 @@ public class Hotel {
     private String location;
 
     //odaları vardır liste seklinde gösterecegiz.
-    @OneToMany(mappedBy = "hotel",fetch = FetchType.EAGER)//3.tablo oluşturma
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)//3.tablo oluşturma
     // room clasındaki hotel içinde set edildiğinde sende buraya gel mapped.
     private List<Room> rooms=new ArrayList<>();
 

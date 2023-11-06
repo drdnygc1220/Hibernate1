@@ -19,8 +19,14 @@ public class Room {//FK sütunu MANY olan kısımda olur genelde..
     private Hotel hotel;
 
     //reservation olması lazım.
-    //todo:one-to-many
-   // private List<Reservation> reservations=new ArrayList<>();//rezervasyonu set etmedik constr kısmına
+   @OneToMany(mappedBy = "room",orphanRemoval = true,fetch = FetchType.EAGER)
+   //OneToMany ann. tek bir sütun yeterli olmadıgından 3.tablo oluşturur.
+   //OneToMany ilişkide 1 obje Çok(many) obje ile ilişki old ilişki tek tarfta kurulumaz
+   //ManyToOne tarafında ilşki kurulur
+   //OneToMany sadece degerler maplenir.
+   private List<Reservation> reservations=new ArrayList<>();//rezervasyonu set etmedik constr kısmına
+    //reservation silmeden room silmemiz gerekiyor önce reservation iptal edilmeli.
+    //aşamalı silme işlemi önce childlar silinir:orphanRemoval
 
     //default cons
 
@@ -69,7 +75,7 @@ public class Room {//FK sütunu MANY olan kısımda olur genelde..
         this.hotel = hotel;
     }
 
-   /* public List<Reservation> getReservations() {
+   public List<Reservation> getReservations() {
         return reservations;
     }
 
@@ -77,7 +83,7 @@ public class Room {//FK sütunu MANY olan kısımda olur genelde..
         this.reservations = reservations;
     }
 
-    */
+
 
     //toString
 
@@ -88,7 +94,7 @@ public class Room {//FK sütunu MANY olan kısımda olur genelde..
                 "id=" + id +
                 ", number='" + number + '\'' +
                 ", capacity=" + capacity +
-                //", reservations=" + reservations +
+                ", reservations=" + reservations +
                 '}';
     }
 }
