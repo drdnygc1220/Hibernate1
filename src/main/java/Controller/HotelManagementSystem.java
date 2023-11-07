@@ -1,10 +1,14 @@
 package Controller;
 
 import Config.HibernateUtils;
+import Domain.Reservation;
 import Repository.GuestRepository;
 import Repository.HotelRepository;
+import Repository.ReservationRepository;
 import Repository.RoomRepository;
+import Service.GuestService;
 import Service.HotelService;
+import Service.ReservationService;
 import Service.RoomService;
 
 import java.util.Scanner;
@@ -18,8 +22,16 @@ public class HotelManagementSystem {
     public static void displayMenuHotelManagementSystem() {
         HotelRepository hotelRepository=new HotelRepository();
         HotelService hotelService=new HotelService(hotelRepository);
+
         RoomRepository roomRepository=new RoomRepository();
         RoomService roomService=new RoomService(roomRepository,hotelService);
+
+        GuestRepository guestRepository=new GuestRepository();
+        GuestService guestService=new GuestService(guestRepository);
+
+        ReservationRepository reservationRepository=new ReservationRepository();
+        ReservationService reservationService=new ReservationService(reservationRepository);
+
 
         boolean exit=false;
         while (!exit){
@@ -39,10 +51,10 @@ public class HotelManagementSystem {
                        displayRoomOperationsMenu(roomService);
                         break;
                     case 3:
-                        displayGuestOperationsMenu();
+                        displayGuestOperationsMenu(guestService);
                         break;
                     case 4:
-                        displayReservationOperationsMenu();
+                        displayReservationOperationsMenu(reservationService);
                         break;
                     case 0:
                         exit=true;
@@ -134,6 +146,7 @@ public class HotelManagementSystem {
 
                     break;
                 case 3:
+
                     break;
                 case 4:
                     roomService.findAllRooms();
@@ -150,7 +163,7 @@ public class HotelManagementSystem {
 
     }
 
-  private static void displayGuestOperationsMenu(){//parametre kısmına tekrar bak neden almamış
+  private static void displayGuestOperationsMenu(GuestService guestService){//parametre kısmına tekrar bak neden almamış
         System.out.println("Guest işlemleri menüsü");
         boolean exit=false;
         while (!exit){
@@ -166,16 +179,16 @@ public class HotelManagementSystem {
             switch (choice){
                 case 1:
                     break;
-                case 2:
+                case 2://ödev
                     System.out.println("Guest ID:");
                     Long id=scanner.nextLong();
                     scanner.nextLine();
-
+                    guestService.findGuestById(id);
                     break;
                 case 3:
                     break;
                 case 4:
-
+                    guestService.findAllGuest();
                     //ödev
                     break;
                 case 0:
@@ -190,7 +203,7 @@ public class HotelManagementSystem {
 
     }
 
-   private static void displayReservationOperationsMenu(){
+   private static void displayReservationOperationsMenu(ReservationService reservationService){
         System.out.println("Reservation işlemleri menüsü");
         boolean exit=false;
         while (!exit){
@@ -206,10 +219,14 @@ public class HotelManagementSystem {
             switch (choice){
                 case 1:
                     break;
-                case 2:
-                    //ödev
+                case 2://ödev
+                    System.out.println("Reservation ID:");
+                    Long id=scanner.nextLong();
+                    scanner.nextLine();
+                    reservationService.findReservationById(id);
                     break;
                 case 3:
+                    reservationService.findAllResevation();
                     //ödev
                     break;
                 case 4:
