@@ -19,7 +19,7 @@ public class Room {//FK sütunu MANY olan kısımda olur genelde..
     private Hotel hotel;
 
     //reservation olması lazım.
-   @OneToMany(mappedBy = "room",orphanRemoval = true,fetch = FetchType.EAGER)
+   @OneToMany(mappedBy = "room",orphanRemoval = true,fetch = FetchType.EAGER)//orphanRemovel:önce cocukları sil,sonra ebeveyn sil:sadece onetomany de kullanılır.
    //OneToMany ann. tek bir sütun yeterli olmadıgından 3.tablo oluşturur.
    //OneToMany ilişkide 1 obje Çok(many) obje ile ilişki old ilişki tek tarfta kurulumaz
    //ManyToOne tarafında ilşki kurulur
@@ -27,6 +27,7 @@ public class Room {//FK sütunu MANY olan kısımda olur genelde..
    private List<Reservation> reservations=new ArrayList<>();//rezervasyonu set etmedik constr kısmına
     //reservation silmeden room silmemiz gerekiyor önce reservation iptal edilmeli.
     //aşamalı silme işlemi önce childlar silinir:orphanRemoval
+
 
     //default cons
 

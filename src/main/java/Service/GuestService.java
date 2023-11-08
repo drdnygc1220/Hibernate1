@@ -1,5 +1,6 @@
 package Service;
 
+import Domain.Address;
 import Domain.Guest;
 import Exceptions.HotelNotFoundExceptions;
 import Repository.GuestRepository;
@@ -47,4 +48,27 @@ public class GuestService {
         return null;
    }
 
+    public void saveGuest() {
+        Guest guest=new Guest();
+        System.out.println("Enter guest name: ");
+        guest.setName(scanner.nextLine());
+
+        Address address=new Address();
+        System.out.println("Enter street:");
+        address.setStreet(scanner.nextLine());
+        System.out.println("Enter city:");
+        address.setCity(scanner.nextLine());
+        System.out.println("Enter country:");
+        address.setCountry(scanner.nextLine());
+        System.out.println("Enter zipcode:");
+        address.setZipcode(scanner.nextInt());
+        scanner.nextLine();
+
+        guest.setAddress(address);
+
+        guestRepository.save(guest);
+        System.out.println("Guest is saved succesfully...guset id:"+guest.getId());
+
+
+    }
 }

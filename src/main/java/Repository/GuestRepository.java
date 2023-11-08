@@ -4,6 +4,7 @@ import Config.HibernateUtils;
 import Domain.Guest;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -36,4 +37,20 @@ public class GuestRepository {
             return null;
         }
     }
+
+    public void save(Guest guest) {
+        try{
+            session= HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction=session.beginTransaction();
+
+            session.save(guest);
+            transaction.commit();
+
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }finally {
+            HibernateUtils.closeSession(session);
+        }
+    }
+
 }

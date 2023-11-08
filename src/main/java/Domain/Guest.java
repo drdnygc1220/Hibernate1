@@ -8,39 +8,36 @@ import java.util.List;
 @Entity
 @Table(name = "t_guest")
 public class Guest {
-    //todo:generate
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//id degeri 1 den başlar birer birer artar
     private Long id;
     private String name;
     @Embedded
    private Address address;
 
     private LocalDateTime createDate;//konuk giriş yaptıgında hangi zaman diliminde yapılmış:prePersist
+
+    //her bir konuğun rezervasyonu olabilir.
+    @OneToMany(mappedBy = "guest",orphanRemoval = true)//guest fieldı yanlış yazılırsa session hata alır .
+    private List<Reservation>reservations=new ArrayList<>();
     @PrePersist
     public void prePersist(){//tabloya kaydetmeden HEMEN önce ne yapmak istiyorsak anateyşını kullanacagız..
         this.createDate=LocalDateTime.now();
 
     }
 
-    //her bir konuğun rezervasyonu olabilir.
-    @OneToMany(mappedBy = "reservation",orphanRemoval = true)
-    private List<Reservation>reservations=new ArrayList<>();
 
-    public Guest(Long id, String name, Address address, LocalDateTime createDate, List<Reservation> reservations) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.createDate = createDate;
-        this.reservations = reservations;
-    }
+
+
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   // public void setId(Long id) {
+    //    this.id = id;
+    //}
 
     public String getName() {
         return name;
@@ -62,9 +59,9 @@ public class Guest {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
+    //public void setCreateDate(LocalDateTime createDate) {
+    //    this.createDate = createDate;
+   // };manuel olarak set etmemeliyim.
 
     public List<Reservation> getReservations() {
         return reservations;

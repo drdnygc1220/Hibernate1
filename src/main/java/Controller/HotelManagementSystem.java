@@ -30,7 +30,7 @@ public class HotelManagementSystem {
         GuestService guestService=new GuestService(guestRepository);
 
         ReservationRepository reservationRepository=new ReservationRepository();
-        ReservationService reservationService=new ReservationService(reservationRepository);
+        ReservationService reservationService=new ReservationService(reservationRepository,guestService,roomService);
 
 
         boolean exit=false;
@@ -146,6 +146,10 @@ public class HotelManagementSystem {
 
                     break;
                 case 3:
+                    System.out.println("Enter the room ID to delete: ");
+                    Long roomIdToDelete=scanner.nextLong();
+                    scanner.nextLine();
+                    roomService.deleteRoomById(roomIdToDelete);
 
                     break;
                 case 4:
@@ -155,7 +159,7 @@ public class HotelManagementSystem {
                     exit=true;
                     break;
                 default:
-                    System.out.println("yanlış yada eksik girdiniz");
+                    System.out.println("Yanlış yada eksik girdiniz");
                     break;
 
             }
@@ -177,7 +181,8 @@ public class HotelManagementSystem {
             int choice= scanner.nextInt();
             scanner.nextLine();
             switch (choice){
-                case 1:
+                case 1://save guest
+                    guestService.saveGuest();
                     break;
                 case 2://ödev
                     System.out.println("Guest ID:");
@@ -186,10 +191,13 @@ public class HotelManagementSystem {
                     guestService.findGuestById(id);
                     break;
                 case 3:
+                    System.out.println("Enter the Guest ID: ");
+                    long guestId=scanner.nextLong();
+                    scanner.nextLine();
+                    guestService.findGuestById(guestId);
                     break;
                 case 4:
                     guestService.findAllGuest();
-                    //ödev
                     break;
                 case 0:
                     exit=true;
@@ -217,9 +225,10 @@ public class HotelManagementSystem {
             int choice= scanner.nextInt();
             scanner.nextLine();
             switch (choice){
-                case 1:
+                case 1://save reservation
+                    reservationService.saveReservation();
                     break;
-                case 2://ödev
+                case 2:
                     System.out.println("Reservation ID:");
                     Long id=scanner.nextLong();
                     scanner.nextLine();
@@ -227,9 +236,8 @@ public class HotelManagementSystem {
                     break;
                 case 3:
                     reservationService.findAllResevation();
-                    //ödev
                     break;
-                case 4:
+                case 4://ödev
                     break;
                 case 5:
                     exit=true;

@@ -6,6 +6,7 @@ import Domain.Hotel;
 import Domain.Reservation;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -31,15 +32,27 @@ public class ReservationRepository {
     }
 
     public List<Reservation> findALL() {
-        try{
-            session=HibernateUtils.getSessionFactory().openSession();
+
+            Session session=HibernateUtils.getSessionFactory().openSession();
+            String hql="FROM Reservation";
             List<Reservation>reservations=session.createQuery("FROM Hotel ", Reservation.class).getResultList();
-            return reservations;
+            if(reservations.isEmpty()){
+                System.out.println("Reservatiion is empty");
+            }
+        return reservations;
+    }
+
+    public void save(Reservation reservation) {
+        try{
+            Session session=HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction=session.beginTransaction();
+
+            session.persist(reservation);//persist=save datayı kalıcı hale getirir.
         }catch (HibernateException e){
             e.printStackTrace();
         }finally {
             HibernateUtils.closeSession(session);
         }
-        return null;
+
     }
 }

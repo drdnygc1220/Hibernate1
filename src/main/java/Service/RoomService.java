@@ -79,4 +79,7 @@ public class RoomService {
                 }
                 return roomList;
     }
+
+    public void deleteRoomById(Long roomIdToDelete) {
+    }
 }

@@ -18,7 +18,7 @@ public class Hotel {
     //odaları vardır liste seklinde gösterecegiz.
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)//3.tablo oluşturma
     // room clasındaki hotel içinde set edildiğinde sende buraya gel mapped.
-    private List<Room> rooms=new ArrayList<>();
+    private List<Room> rooms=new ArrayList<>();//cascadetype.remove:önce odaları sil sonra oteli sil.
 
     //parametresiz cons.;Normalde parametreli yaptıgımızda bunu opsiyonel yapmış oluyoruz
     // fakat hibeernate dataları alıp getirdiğine
@@ -77,6 +77,7 @@ public class Hotel {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
+                ",rooms='"+rooms+'\''+
                 '}';
     }
 }

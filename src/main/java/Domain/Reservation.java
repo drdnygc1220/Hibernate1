@@ -5,14 +5,21 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "t_reservation")
 public class Reservation {
-    //TODO:Otomatik generate edilir
+
     @Id
+    @GeneratedValue(generator = "seq",strategy =GenerationType.SEQUENCE)//DAHA HIZLI PARAMETRE VERMEM GEREK=genereate=seq
+    //seq içinde parametre vermem gerek
+    @SequenceGenerator(name = "seq",sequenceName = "reservation_id_seq",initialValue = 1000,allocationSize = 5)
+    //name;hangi generate kullandıgını söylemek için.
+    //sequenceName;seq adı
+    //initivalue;başlangıç degerini belirler.
+    //allocationSize;içinde hazır bulunan 5er beşer seti hazır beklet demek.
     private Long id;
     @Column(nullable = false)
     private LocalDate checkIn;
     @Column(nullable = false)
     private LocalDate checkOut;
-    @ManyToOne//MANY olan tarafta FK tablosunu saglıyor:guest_id
+    @ManyToOne(fetch = FetchType.LAZY)//MANY olan tarafta FK tablosunu saglıyor:guest_id
     @JoinColumn(nullable = false)//ilişkilerde joıcolumn kullanılır
     private Guest guest;
     @ManyToOne
